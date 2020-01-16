@@ -1,0 +1,44 @@
+{
+  "name": "sanity-plugin-tabs",
+  "version": "1.0.0",
+  "description": "Sanity input component for rendering fieldsets as tabs",
+  "main": "lib/index.js",
+  "scripts": {
+    "build": "babel src -d lib --copy-files",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-eslint": "^10.0.1",
+    "babel-plugin-syntax-class-properties": "^6.13.0",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "eslint": "^5.9.0",
+    "eslint-config-sanity": "^2.1.4",
+    "eslint-plugin-react": "^7.11.1"
+  },
+  "peerDependencies": {
+    "react": ">=15"
+  },
+  "dependencies": {
+    "@sanity/form-builder": "^0.136.3",
+    "prop-types": "^15.6.2"
+  },
+  "keywords": [
+    "sanity",
+    "cms",
+    "content",
+    "sanity-plugin"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/azzlack/sanity-plugin-tabs.git"
+  },
+  "bugs": {
+    "url": "https://github.com/azzlack/sanity-plugin-tabs/issues"
+  },
+  "homepage": "https://www.sanity.io/",
+  "author": "Ove Andersen",
+  "license": "ISC"
+}

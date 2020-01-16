@@ -1,0 +1,16 @@
+{
+  "paths": {
+    "source": "./src",
+    "compiled": "./lib"
+  },
+  "parts": [
+    {
+      "name": "part:@sanity/form-builder/input/tabs",
+      "description": "A tab renderer for fieldsets"
+    },
+    {
+      "implements": "part:@sanity/form-builder/input/tabs",
+      "path": "src/index.js"
+    }
+  ]
+}
