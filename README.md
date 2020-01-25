@@ -10,7 +10,7 @@ Input component for rendering fieldsets as tabs
 Just add `inputComponent: Tabs` to your field. Please note that the field type must be `object`.
 
 ```
-import Tabs from 'sanity-plugin-tabs'
+import Tabs from "sanity-plugin-tabs"
 
 export default {
   type: "document",
