@@ -3,7 +3,8 @@
 .tab {
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
-  margin-left: 0 !important;
+  margin-left: -1px !important;
+  border-bottom: none !important;
 }
 
 .tab_headers {
