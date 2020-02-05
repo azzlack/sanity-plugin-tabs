@@ -1,12 +1,13 @@
-Sanity Tabs Plugin
-=========
+# Sanity Tabs Plugin
+
 Input component for rendering fieldsets as tabs
 
 ### How does it look?
-![Tabs](/images/tabs.png?raw=true "Tabs")
-![Tabs inside tabs](/images/tabs-in-tabs.png?raw=true "Tabs inside tabs")
+
+![Preview](/images/preview.png?raw=true "Preview")
 
 ### How do I use it?
+
 Just add `inputComponent: Tabs` to your field. Please note that the field type must be `object`.
 
 ```
@@ -27,7 +28,7 @@ export default {
         { name: "aside", title: "Aside" },
         { name: "meta", title: "Meta" },
       ],
-      
+
       fields: [
         {
           type: "object",
