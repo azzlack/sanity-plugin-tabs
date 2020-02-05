@@ -104,11 +104,7 @@ class Tabs extends React.Component {
                   this.onFieldChangeHandler(field, patchEvent)
               };
 
-              return (
-                <Fragment key={field.name}>
-                  <FormBuilderInput {...fieldProps} />
-                </Fragment>
-              );
+              return <FormBuilderInput {...fieldProps} />;
             })}
         </div>
       </div>
