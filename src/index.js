@@ -81,6 +81,7 @@ class Tabs extends React.Component {
                 return (
                   <Button
                     className={styles.tab}
+                    color="primary"
                     inverted={this.state.activeTab == fs.name ? false : true}
                     onClick={() => this.onTabClicked(fs)}
                   >
