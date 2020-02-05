@@ -4,7 +4,7 @@ Input component for rendering fieldsets as tabs
 
 ### How does it look?
 
-![Preview](/images/preview.png?raw=true "Preview")
+![Preview](/images/previews.png?raw=true "Preview")
 
 ### How do I use it?
 
