@@ -1,7 +1,7 @@
 import React, { Fragment } from "react";
 import PropTypes from "prop-types";
 import { withDocument } from "part:@sanity/form-builder";
-import { FormBuilderInput, patches } from "part:@sanity/form-builder";
+import { FormBuilderInput } from "part:@sanity/form-builder";
 import Button from "part:@sanity/components/buttons/default";
 
 import styles from "./tabs.css";
