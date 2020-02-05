@@ -95,6 +95,7 @@ class Tabs extends React.Component {
           {tabFields &&
             tabFields.map(field => {
               var fieldProps = {
+                key: field.name,
                 type: field.type,
                 value: value && value[field.name],
                 onBlur: this.props.onBlur,
