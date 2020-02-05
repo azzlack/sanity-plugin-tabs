@@ -43,7 +43,7 @@ class Tabs extends React.Component {
   };
 
   onFieldChangeHandler = (field, fieldPatchEvent) => {
-    const { onChange, type } = this.props;
+    const { onChange } = this.props;
     var e = fieldPatchEvent.prefixAll(field.name);
 
     console.debug(`[Tabs] FieldChanged:`, field, e);
