@@ -105,7 +105,7 @@ class Tabs extends React.Component {
 
               return (
                 <Fragment key={field.name}>
-                  <FormBuilderInput {...fieldProps} isRoot={true} />
+                  <FormBuilderInput {...fieldProps} />
                 </Fragment>
               );
             })}
