@@ -80,6 +80,7 @@ class Tabs extends React.Component {
               {type.fieldsets.map(fs => {
                 return (
                   <Button
+                    key={fs.name}
                     className={styles.tab}
                     color="primary"
                     inverted={this.state.activeTab == fs.name ? false : true}
@@ -95,11 +96,10 @@ class Tabs extends React.Component {
           {tabFields &&
             tabFields.map(field => {
               var fieldProps = {
+                ...this.props,
+                ...field,
                 key: field.name,
-                type: field.type,
                 value: value && value[field.name],
-                onBlur: this.props.onBlur,
-                onFocus: this.props.onFocus,
                 onChange: patchEvent =>
                   this.onFieldChangeHandler(field, patchEvent)
               };
