@@ -1,72 +1,15 @@
 @import "part:@sanity/base/theme/variables-style";
 
-.tabs {
+.tab {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  margin-left: 0 !important;
 }
 
 .tab_headers {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-}
-
-.tab_header {
-  transition: border-color 0.15s, background-color 0.15s, color 0.15s,
-    opacity 0.15s, box-shadow 0.1s;
-  padding: var(--small-padding) var(--medium-padding);
-  max-width: 100%;
-  overflow-x: auto;
-  overflow-y: hidden;
-  cursor: default;
-  color: var(--default-button-primary-color);
-  background-color: transparent;
-  border-top: 1px solid color(var(--default-button-primary-color) a(35%));
-  border-left: 1px solid color(var(--default-button-primary-color) a(35%));
-  border-right: 1px solid color(var(--default-button-primary-color) a(35%));
-  border-radius: var(--button-border-radius) var(--button-border-radius) 0 0;
-
-  @nest &:focus {
-    outline: none;
-
-    @media (hover: hover) {
-      background-color: color(
-        var(--default-button-primary-color) lightness(+ 5%)
-      );
-    }
-  }
-
-  @nest &:hover {
-    cursor: pointer;
-    background-color: color(var(--default-button-primary-color) a(5%));
-    border-top: 1px solid color(var(--default-button-primary-color) a(70%));
-    border-left: 1px solid color(var(--default-button-primary-color) a(70%));
-    border-right: 1px solid color(var(--default-button-primary-color) a(70%));
-  }
-}
-
-.tab_header__active {
-  composes: tab_header;
-
-  background-color: var(--default-button-primary-color) !important;
-  color: var(--default-button-primary-color--inverted) !important;
-
-  @nest &:hover {
-    @media (hover: hover) {
-      background-color: color(
-        var(--default-button-primary-color) lightness(+5%)
-      ) !important;
-    }
-  }
-
-  @nest &:focus {
-    outline: none;
-
-    @media (hover: hover) {
-      background-color: color(
-        var(--default-button-primary-color) lightness(+ 5%)
-      );
-      color: var(--default-button-primary-color--inverted) !important;
-    }
-  }
 }
 
 .tab_content {
