@@ -86,7 +86,7 @@ class Tabs extends React.Component {
                     inverted={this.state.activeTab == fs.name ? false : true}
                     onClick={() => this.onTabClicked(fs)}
                   >
-                    {fs.title}
+                    {fs.title || "Other"}
                   </Button>
                 );
               })}
