@@ -13,6 +13,10 @@
   flex-wrap: wrap;
 }
 
+.tab_header__error {
+  margin-left: var(--extra-small-padding);
+}
+
 .tab_content {
   margin-left: -1px !important;
   padding: var(--small-padding);
