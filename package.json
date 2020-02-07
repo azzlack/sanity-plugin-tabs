@@ -4,7 +4,7 @@
   "description": "Sanity input component for rendering fieldsets as tabs",
   "main": "lib/index.js",
   "scripts": {
-    "build": "npx babel src --out-dir lib",
+    "build": "npx babel src -d lib --copy-files",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "devDependencies": {
@@ -14,6 +14,7 @@
     "@babel/plugin-proposal-object-rest-spread": "^7.8.3",
     "@babel/preset-env": "^7.8.4",
     "@babel/preset-react": "^7.8.3",
+    "babel-plugin-react-css-modules": "^5.2.6",
     "eslint": "^5.9.0",
     "eslint-config-sanity": "^2.1.4",
     "eslint-plugin-react": "^7.11.1"
