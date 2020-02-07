@@ -18,8 +18,9 @@
 }
 
 .tab_content {
-  padding: var(--medium-padding);
-  border: 1px solid var(--hairline-color);
+  margin-right: -1px !important;
+  padding: var(--small-padding);
+  border-top: 1px solid var(--hairline-color);
   border-top-right-radius: var(--border-radius-large);
   border-bottom-left-radius: var(--border-radius-large);
   border-bottom-right-radius: var(--border-radius-large);
