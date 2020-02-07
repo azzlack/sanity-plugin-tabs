@@ -19,7 +19,7 @@
 
 .tab_content {
   margin-right: -1px !important;
-  padding: var(--small-padding);
+  padding: var(--medium-padding);
   border-top: 1px solid var(--hairline-color);
   border-top-right-radius: var(--border-radius-large);
   border-bottom-left-radius: var(--border-radius-large);
