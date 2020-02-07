@@ -5,7 +5,7 @@
   "main": "lib/index.js",
   "scripts": {
     "build": "npx babel src -d lib --copy-files",
-    "deploy": "npm run build && npm publish --dry-run",
+    "deploy": "npm run build && npm publish",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "devDependencies": {
