@@ -2,7 +2,7 @@
 
 Input component for rendering fieldsets as tabs
 
-![npm](https://img.shields.io/npm/v/sanity-plugin-tabs?style=for-the-badge) ![npm](https://img.shields.io/npm/dw/sanity-plugin-tabs?style=for-the-badge)
+[![NPM version](https://img.shields.io/npm/v/sanity-plugin-tabs?style=for-the-badge)](https://www.npmjs.com/package/sanity-plugin-tabs) [![NPM Downloads](https://img.shields.io/npm/dw/sanity-plugin-tabs?style=for-the-badge)](https://www.npmjs.com/package/sanity-plugin-tabs)
 
 ### How does it look?
 
