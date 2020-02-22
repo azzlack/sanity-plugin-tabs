@@ -28,9 +28,6 @@ class Tabs extends React.Component {
   };
 
   focus = () => {
-    if (this.focusRef.current && this.focusRef.current.focus) {
-      this.focusRef.current.focus();
-    }
   };
 
   getTabFields = tabName => {
