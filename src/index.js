@@ -126,6 +126,12 @@ class Tabs extends React.Component {
     const { type, value } = this.props;
     const tabFields = this.getActiveTabFields();
 
+    let contentStyle = styles.content_document;
+
+    if (type.options.layout === "object") {
+      contentStyle = styles.content_object;
+    }
+
     return (
       <div className={styles.tabs}>
         {type.fieldsets &&
@@ -159,7 +165,7 @@ class Tabs extends React.Component {
               })}
             </div>
           )}
-        <div className={styles.tab_content}>
+        <div className={contentStyle}>
           {tabFields &&
             tabFields.map(field => {
               var m = this.getFieldMarkers(field.name);

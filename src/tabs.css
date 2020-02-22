@@ -17,11 +17,23 @@
   margin-left: var(--extra-small-padding);
 }
 
-.tab_content {
-  margin-right: -1px !important;
-  padding: var(--medium-padding);
+.content_document {
+  padding-top: var(--small-padding);
   border-top: 1px solid var(--hairline-color);
+
+  @media (min-width: 32em) {
+    padding-top: var(--medium-padding);
+  }
+}
+
+.content_object {
+  padding: var(--small-padding);
+  border: 1px solid var(--hairline-color);
   border-top-right-radius: var(--border-radius-large);
   border-bottom-left-radius: var(--border-radius-large);
   border-bottom-right-radius: var(--border-radius-large);
+
+  @media (min-width: 32em) {
+    padding: var(--medium-padding);
+  }
 }
