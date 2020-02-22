@@ -28,6 +28,7 @@ class Tabs extends React.Component {
   };
 
   focus = () => {
+    console.debug(`[Tabs] Focus`);
   };
 
   getTabFields = tabName => {
@@ -90,6 +91,12 @@ class Tabs extends React.Component {
     }
 
     return null;
+  };
+
+  onFieldFocusHandler = (field, path) => {
+    const { onFocus, type } = this.props;
+
+    console.debug(`[Tabs] FieldFocused:`, field, path);
   };
 
   onFieldChangeHandler = (field, fieldPatchEvent) => {
@@ -172,8 +179,8 @@ class Tabs extends React.Component {
                 key: field.name,
                 markers: m,
                 value: value && value[field.name],
-                onChange: patchEvent =>
-                  this.onFieldChangeHandler(field, patchEvent)
+                onFocus: path => this.onFieldFocusHandler(field, path),
+                onChange: patchEvent => this.onFieldChangeHandler(field, patchEvent)
               };
 
               return <FormBuilderInput {...fieldProps} />;
