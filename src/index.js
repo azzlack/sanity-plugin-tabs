@@ -1,11 +1,11 @@
 import React, { Fragment } from "react";
 import PropTypes from "prop-types";
-import { withDocument } from "part:@sanity/form-builder";
-import { FormBuilderInput, patches } from "part:@sanity/form-builder";
+import { withDocument, FormBuilderInput, patches } from "part:@sanity/form-builder";
+import { resolveTypeName } from "./utils";
+import InvalidValue from "@sanity/form-builder/lib/inputs/InvalidValueInput";
 import * as PathUtils from "@sanity/util/paths.js";
 import WarningIcon from "part:@sanity/base/warning-icon";
 import Button from "part:@sanity/components/buttons/default";
-import AnimateHeight from 'react-animate-height'
 import defaultStyles from 'part:@sanity/components/formfields/default-style';
 import styles from "./tabs.css";
 
@@ -18,7 +18,9 @@ class Tabs extends React.Component {
       fields: PropTypes.array.isRequired
     }).isRequired,
     level: PropTypes.number,
-    value: PropTypes.object,
+    value: PropTypes.shape({
+      _type: PropTypes.string
+    }),
     focusPath: PropTypes.array.isRequired,
     onFocus: PropTypes.func.isRequired,
     onBlur: PropTypes.func.isRequired,
@@ -107,7 +109,7 @@ class Tabs extends React.Component {
   onFieldBlurHandler = (field) => {
     const { onBlur, type } = this.props;
 
-    console.debug(`[Tabs] FueldBlurred:`, field, path);
+    console.debug(`[Tabs] FieldBlurred:`, field);
 
     onBlur();
   };
@@ -122,13 +124,21 @@ class Tabs extends React.Component {
 
   onFieldChangeHandler = (field, fieldPatchEvent) => {
     const { onChange, type } = this.props;
-    var e = fieldPatchEvent
-      .prefixAll(field.name)
-      .prepend(setIfMissing({ _type: type.name }));
 
-    console.debug(`[Tabs] FieldChanged:`, field, e);
+    if (!field.type.readOnly) {
+      var e = fieldPatchEvent
+        .prefixAll(field.name)
+        .prepend(setIfMissing({ _type: type.name }));
 
-    onChange(e);
+      console.debug(`[Tabs] FieldChanged:`, field, e);
+
+      onChange(e);
+    }
+  };
+
+  onHandleInvalidValue = (field, fieldPatchEvent) => {
+    const { onChange, type } = this.props;
+
   };
 
   onTabClicked = fieldset => {
@@ -136,6 +146,10 @@ class Tabs extends React.Component {
       activeTab: fieldset.name
     });
   };
+
+  setInput = input => {
+    this.firstFieldInput = input;
+  }
 
   componentDidMount() {
     if (this.state.activeTab === "" && this.props.type.fieldsets.length > 0) {
@@ -199,11 +213,13 @@ class Tabs extends React.Component {
         <div className={contentStyle}>
           {tabFields &&
             tabFields.map((field, i) => {
-              var fieldLevel = level + 1;
+              var fieldLevel = level;
               var fieldRef = i === 0 ? this.firstFieldInput : null;
               var fieldMarkers = this.getFieldMarkers(field.name);
               var fieldPath = [field.name];
               var fieldType = field.type;
+              var fieldReadOnly = field.type.readOnly || readOnly;
+              var fieldValue = value && value[field.name] ? value[field.name] : undefined;
 
               var fieldProps = {
                 ref: fieldRef,
@@ -212,14 +228,36 @@ class Tabs extends React.Component {
                 level: fieldLevel,
                 path: fieldPath,
                 focusPath: focusPath,
-                readOnly: readOnly,
-                value: value && value[field.name],
+                readOnly: fieldReadOnly,
+                value: fieldValue,
                 onFocus: path => this.onFieldFocusHandler(field, path),
                 onChange: patchEvent => this.onFieldChangeHandler(field, patchEvent),
                 onBlur: () => this.onFieldBlurHandler(field)
               };
 
-              return <div key={field.name} className={styles.field_root}>
+              // Handle invalid values. 
+              // Lifted from https://github.com/sanity-io/sanity/blob/next/packages/@sanity/form-builder/src/inputs/ObjectInput/Field.tsx
+              if (typeof fieldValue !== 'undefined') {
+                const expectedType = fieldType.name;
+                const actualType = resolveTypeName(fieldValue);
+                const isCompatible = actualType === fieldType.jsonType;
+
+                if (expectedType !== actualType && !isCompatible) {
+                  return (
+                    <div key={field.name} className={defaultStyles.root}>
+                      <InvalidValue
+                        value={fieldValue}
+                        onChange={fieldProps.onChange}
+                        validTypes={[fieldType.name]}
+                        actualType={actualType}
+                        ref={this.setInput}
+                      />
+                    </div>
+                  )
+                }
+              }
+
+              return <div key={field.name} className={defaultStyles.root}>
                 <FormBuilderInput {...fieldProps} />
               </div>;
             })}
