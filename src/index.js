@@ -5,29 +5,40 @@ import { FormBuilderInput, patches } from "part:@sanity/form-builder";
 import * as PathUtils from "@sanity/util/paths.js";
 import WarningIcon from "part:@sanity/base/warning-icon";
 import Button from "part:@sanity/components/buttons/default";
+import AnimateHeight from 'react-animate-height'
+import defaultStyles from 'part:@sanity/components/formfields/default-style';
 import styles from "./tabs.css";
 
-const { setIfMissing } = patches;
+const { setIfMissing, unset } = patches;
 
 class Tabs extends React.Component {
-  focusRef = React.createRef();
-
   static propTypes = {
     type: PropTypes.shape({
       fieldsets: PropTypes.array.isRequired,
       fields: PropTypes.array.isRequired
     }).isRequired,
+    level: PropTypes.number,
     value: PropTypes.object,
-    onFocus: PropTypes.func,
-    onBlur: PropTypes.func,
+    focusPath: PropTypes.array.isRequired,
+    onFocus: PropTypes.func.isRequired,
+    onBlur: PropTypes.func.isRequired,
     onChange: PropTypes.func.isRequired
   };
+
+  firstFieldInput = React.createRef()
 
   state = {
     activeTab: ""
   };
 
   focus = () => {
+    if (this.firstFieldInput.current) {
+      this.firstFieldInput.current.focus();
+    }
+    else {
+
+    }
+
     console.debug(`[Tabs] Focus`);
   };
 
@@ -93,10 +104,20 @@ class Tabs extends React.Component {
     return null;
   };
 
+  onFieldBlurHandler = (field) => {
+    const { onBlur, type } = this.props;
+
+    console.debug(`[Tabs] FueldBlurred:`, field, path);
+
+    onBlur();
+  };
+
   onFieldFocusHandler = (field, path) => {
     const { onFocus, type } = this.props;
 
     console.debug(`[Tabs] FieldFocused:`, field, path);
+
+    onFocus(path);
   };
 
   onFieldChangeHandler = (field, fieldPatchEvent) => {
@@ -127,7 +148,13 @@ class Tabs extends React.Component {
   render = () => {
     console.debug(`[Tabs] Props:`, this.props);
 
-    const { type, value } = this.props;
+    const {
+      level,
+      readOnly,
+      focusPath,
+      value,
+      type
+    } = this.props
     const tabFields = this.getActiveTabFields();
 
     let contentStyle = styles.content_document;
@@ -171,15 +198,25 @@ class Tabs extends React.Component {
           )}
         <div className={contentStyle}>
           {tabFields &&
-            tabFields.map(field => {
-              var m = this.getFieldMarkers(field.name);
+            tabFields.map((field, i) => {
+              var fieldLevel = level + 1;
+              var fieldRef = i === 0 ? this.firstFieldInput : null;
+              var fieldMarkers = this.getFieldMarkers(field.name);
+              var fieldPath = [field.name];
+              var fieldType = field.type;
+
               var fieldProps = {
-                ...this.props,
-                ...field,
-                markers: m,
+                ref: fieldRef,
+                type: fieldType,
+                markers: fieldMarkers,
+                level: fieldLevel,
+                path: fieldPath,
+                focusPath: focusPath,
+                readOnly: readOnly,
                 value: value && value[field.name],
                 onFocus: path => this.onFieldFocusHandler(field, path),
-                onChange: patchEvent => this.onFieldChangeHandler(field, patchEvent)
+                onChange: patchEvent => this.onFieldChangeHandler(field, patchEvent),
+                onBlur: () => this.onFieldBlurHandler(field)
               };
 
               return <div key={field.name} className={styles.field_root}>
