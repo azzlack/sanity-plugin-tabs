@@ -98,3 +98,22 @@ export default {
   ]
 };
 ```
+
+## Development
+Run the following commands at the root of this repository.
+
+```
+npm i
+npm link
+```
+
+Now you can start developing the plugin.  
+To include it in your Sanity test site, navigate to the root folder of your cms project and run `npm link sanity-plugin-tabs`. You will now reference the local version of the when using `import Tabs from "sanity-plugin-tabs"` in your files.  
+
+To debug the original files in VSCode you need to add the following settings to your debug settings:
+
+```
+"runtimeArgs": [
+  "--preserve-symlinks"
+]
+```
