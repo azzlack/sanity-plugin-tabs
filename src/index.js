@@ -176,14 +176,15 @@ class Tabs extends React.Component {
               var fieldProps = {
                 ...this.props,
                 ...field,
-                key: field.name,
                 markers: m,
                 value: value && value[field.name],
                 onFocus: path => this.onFieldFocusHandler(field, path),
                 onChange: patchEvent => this.onFieldChangeHandler(field, patchEvent)
               };
 
-              return <FormBuilderInput {...fieldProps} />;
+              return <div key={field.name} className={styles.field_root}>
+                <FormBuilderInput {...fieldProps} />
+              </div>;
             })}
         </div>
       </div>

@@ -1,5 +1,15 @@
 @import "part:@sanity/base/theme/variables-style";
 
+.field_root {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.field_root + .field_root {
+  margin-top: var(--large-padding);
+}
+
 .tab {
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
