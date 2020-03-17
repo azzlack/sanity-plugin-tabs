@@ -9,7 +9,7 @@ import Button from "part:@sanity/components/buttons/default";
 import defaultStyles from 'part:@sanity/components/formfields/default-style';
 import styles from "./tabs.css";
 
-const { setIfMissing, unset } = patches;
+const { setIfMissing } = patches;
 
 class Tabs extends React.Component {
   static propTypes = {
@@ -27,7 +27,7 @@ class Tabs extends React.Component {
     onChange: PropTypes.func.isRequired
   };
 
-  firstFieldInput = React.createRef()
+  firstFieldInput = React.createRef();
 
   state = {
     activeTab: ""
