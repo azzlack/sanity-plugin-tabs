@@ -2,7 +2,7 @@
   "name": "sanity-plugin-tabs",
   "version": "1.1.6",
   "description": "Sanity input component for rendering fieldsets as tabs",
-  "main": "src/index.js",
+  "main": "lib/index.js",
   "scripts": {
     "build": "npx babel src -d lib --copy-files",
     "deploy": "npm run build && npm publish",
