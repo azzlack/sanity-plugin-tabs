@@ -45,7 +45,7 @@ class Tabs extends React.Component {
   };
 
   getTabFields = tabName => {
-    return this.props.type.fields.filter(f => f.fieldset == tabName);
+    return this.props.type.fields.filter(f => f.fieldset == tabName && f.type.hidden !== true);
   };
 
   flattenFields = arr => {
