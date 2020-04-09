@@ -167,8 +167,9 @@ class Tabs extends React.Component {
       readOnly,
       focusPath,
       value,
-      type
-    } = this.props
+      type,
+      ...otherProps
+    } = this.props;
     const tabFields = this.getActiveTabFields();
 
     let contentStyle = styles.content_document;
@@ -222,6 +223,7 @@ class Tabs extends React.Component {
               var fieldValue = value && value[field.name] ? value[field.name] : undefined;
 
               var fieldProps = {
+                ...otherProps,
                 ref: fieldRef,
                 type: fieldType,
                 markers: fieldMarkers,
