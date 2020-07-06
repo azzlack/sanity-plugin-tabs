@@ -91,11 +91,7 @@ class Tabs extends React.Component {
 
   getFieldMarkers = fieldName => {
     return this.props.markers
-      .filter(marker => PathUtils.startsWith([fieldName], marker.path))
-      .map(marker => ({
-        ...marker,
-        path: this.trimChildPath([fieldName], marker.path)
-      }));
+      .filter(marker => PathUtils.startsWith([fieldName], marker.path));
   };
 
   getActiveTabFields = () => {
