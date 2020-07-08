@@ -10,7 +10,7 @@
     },
     {
       "implements": "part:@sanity/form-builder/input/tabs",
-      "path": "src/index.js"
+      "path": "index.js"
     }
   ]
 }
