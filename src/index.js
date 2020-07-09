@@ -21,10 +21,10 @@ class Tabs extends React.Component {
     value: PropTypes.shape({
       _type: PropTypes.string
     }),
-    focusPath: PropTypes.array.isRequired,
-    onFocus: PropTypes.func.isRequired,
-    onBlur: PropTypes.func.isRequired,
-    onChange: PropTypes.func.isRequired
+    focusPath: PropTypes.array,
+    onFocus: PropTypes.func,
+    onBlur: PropTypes.func,
+    onChange: PropTypes.func
   };
 
   firstFieldInput = React.createRef();
@@ -107,7 +107,9 @@ class Tabs extends React.Component {
 
     console.debug(`[Tabs] FieldBlurred:`, field);
 
-    onBlur();
+    if (onBlur) {
+      onBlur();
+    }
   };
 
   onFieldFocusHandler = (field, path) => {
@@ -115,7 +117,9 @@ class Tabs extends React.Component {
 
     console.debug(`[Tabs] FieldFocused:`, field, path);
 
-    onFocus(path);
+    if (onFocus) {
+      onFocus(path);
+    }
   };
 
   onFieldChangeHandler = (field, fieldPatchEvent) => {
@@ -128,7 +132,9 @@ class Tabs extends React.Component {
 
       console.debug(`[Tabs] FieldChanged:`, field, e);
 
-      onChange(e);
+      if (onChange) {
+        onChange(e);
+      }
     }
   };
 
