@@ -174,13 +174,24 @@ class Tabs extends React.Component {
       contentStyle = styles.content_object;
     }
 
+    var fieldSets = [];
+    if (type.fieldsets &&
+      type.fieldsets.length > 0 &&
+      type.fieldsets[0].single !== true) {
+        fieldSets = type.fieldsets.sort((a, b) => {
+          if (a.options && b.options) {
+            return a.options.sortOrder - b.options.sortOrder;
+          }
+
+          return 0;
+        });
+    }
+
     return (
       <div className={styles.tabs}>
-        {type.fieldsets &&
-          type.fieldsets.length > 0 &&
-          type.fieldsets[0].single !== true && (
+        {fieldSets.length > 1 && (
             <div className={styles.tab_headers}>
-              {type.fieldsets.map(fs => {
+              {fieldSets.map(fs => {
                 var markers = this.getTabMarkers(fs.name);
                 var validation = markers.filter(
                   marker => marker.type === "validation"
