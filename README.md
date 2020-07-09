@@ -8,6 +8,9 @@ Input component for rendering fieldsets as tabs
 
 ![Preview](/images/previews.png?raw=true "Preview")
 
+### Demo
+Clone the [demo repository](https://github.com/azzlack/sanity-plugin-tabs-demo) and run `sanity start` to see how it works :-)
+
 ### How do I use it?
 
 Just add `inputComponent: Tabs` to your field. Please note that the field type must be `object`.
@@ -26,9 +29,9 @@ export default {
       inputComponent: Tabs,
 
       fieldsets: [
-        { name: "main", title: "Main" },
-        { name: "aside", title: "Aside" },
-        { name: "meta", title: "Meta" },
+        { name: "main", title: "Main", options: { sortOrder: 10 } },
+        { name: "aside", title: "Aside", options: { sortOrder: 20 } },
+        { name: "meta", title: "Meta", options: { sortOrder: 30 } },
       ],
       options: {
         // setting layout to object will group the tab content in an object fieldset border.
@@ -110,15 +113,4 @@ npm link
 Now you can start developing the plugin.  
 To include it in your Sanity test site, navigate to the root folder of your cms project and run `npm link sanity-plugin-tabs`. You will now reference the local version of the when using `import Tabs from "sanity-plugin-tabs"` in your files.  
 
-To debug the original files in you need to add the following config to your package.json:
-
-```
-...
-  "scripts": {
-    "dev": "sanity start --preserve-symlinks",
-    ...
-  }
-...
-```
-
-Then you need to run `npm run dev` in your cms project, and `npm run dev` in the sanity-plugin-tabs repo folder.
+To debug the plugin files in you then need to run `sanity start --preserve-symlinks` in your cms project, and `npm run dev` in your sanity-plugin-tabs repository folder.
