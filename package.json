@@ -1,5 +1,5 @@
 {
-  "name": "sanity-plugin-tabs-neue",
+  "name": "sanity-plugin-tabs",
   "version": "1.3.1",
   "description": "Sanity input component for rendering fieldsets as tabs",
   "main": "lib/index.js",
@@ -37,12 +37,12 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/benjaminsehl/sanity-plugin-tabs.git"
+    "url": "git+https://github.com/azzlack/sanity-plugin-tabs.git"
   },
   "bugs": {
-    "url": "https://github.com/benjaminsehl/sanity-plugin-tabs/issues"
+    "url": "https://github.com/azzlack/sanity-plugin-tabs/issues"
   },
-  "homepage": "https://sehl.ca/",
-  "author": "Ben Sehl (Original made by Ove Andersen)",
+  "homepage": "https://www.sanity.io/",
+  "author": "Ove Andersen",
   "license": "ISC"
 }

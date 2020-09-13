@@ -1,24 +1,22 @@
-> Heads up: This is meant to be a temporary repository, and will be archived if/once the PR is merged with the main repo by @azzlack, to fix the UI in accordance with the latest Sanity changes. Everything below is only changed enough to get this version working for you.
-
 # Sanity Tabs Plugin
 
 Input component for rendering fieldsets as tabs
 
-[![NPM version](https://img.shields.io/npm/v/sanity-plugin-tabs-neue?style=for-the-badge)](https://www.npmjs.com/package/sanity-plugin-tabs-neue) [![NPM Downloads](https://img.shields.io/npm/dw/sanity-plugin-tabs-neue?style=for-the-badge)](https://www.npmjs.com/package/sanity-plugin-tabs-neue)
+[![NPM version](https://img.shields.io/npm/v/sanity-plugin-tabs?style=for-the-badge)](https://www.npmjs.com/package/sanity-plugin-tabs) [![NPM Downloads](https://img.shields.io/npm/dw/sanity-plugin-tabs?style=for-the-badge)](https://www.npmjs.com/package/sanity-plugin-tabs)
 
 ### How does it look?
 
 ![Preview](/images/previews.png?raw=true "Preview")
 
 ### Demo
-Clone the originl [demo repository](https://github.com/azzlack/sanity-plugin-tabs-demo) and run `sanity start` to see how it works. This version is supposed to just be temporary, to work with the updated Sanity styling.
+Clone the originl [demo repository](https://github.com/azzlack/sanity-plugin-tabs-demo) and run `sanity start` to see how it works.
 
 ### How do I use it?
 
 Just add `inputComponent: Tabs` to your field. Please note that the field type must be `object`.
 
 ```
-import Tabs from "sanity-plugin-tabs-neue"
+import Tabs from "sanity-plugin-tabs"
 
 export default {
   type: "document",
