@@ -9,7 +9,7 @@ Input component for rendering fieldsets as tabs
 ![Preview](/images/previews.png?raw=true "Preview")
 
 ### Demo
-Clone the originl [demo repository](https://github.com/azzlack/sanity-plugin-tabs-demo) and run `sanity start` to see how it works.
+Clone the original [demo repository](https://github.com/azzlack/sanity-plugin-tabs-demo) and run `sanity start` to see how it works.
 
 ### How do I use it?
 
