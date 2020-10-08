@@ -1,45 +1,51 @@
 @import "part:@sanity/base/theme/variables-style";
+@import "part:@sanity/components/buttons/default-style";
 
 
 .tab {
-  border-bottom-left-radius: 0;
-  border-bottom-right-radius: 0;
-  border-bottom: 0;
+  font-size: var(--font-size-h4);
+  line-height: var(--font-size-h4);
+  display: flex;
+
+  &:first-child {
+    margin-left: 0;
+  }
+
+  &:hover {
+    cursor: pointer;
+  }
 }
 
-.tab:hover {
-  cursor: pointer;
-  border-color: transparent !important;
+.tab__active {
+  margin-bottom: -1px;
+  border-left: 1px solid var(--color-button-inverted-border);
+  border-top: 1px solid var(--color-button-inverted-border);
+  border-right: 1px solid var(--color-button-inverted-border);
+  border-bottom: 1px solid var(--component-bg);
+  border-top-left-radius: var(--border-radius-base);
+  border-top-right-radius: var(--border-radius-base);
+  box-shadow: 0 -2px 2px -2px var(--color-button-inverted-border), 
+    2px 0px 2px -2px var(--color-button-inverted-border), 
+    -2px 0px 2px -2px var(--color-button-inverted-border);
+
+  & .tab_inner {
+    margin-top: -1px;
+  }
 }
 
-.tab > span {
-  border-bottom: 0 !important;
-  border-bottom-left-radius: 0 0 !important;
-  border-bottom-right-radius: 0 0 !important;
-  border-color: var(--hairline-color) !important;
-}
+.tab_inner {
+  padding: var(--small-padding) var(--medium-padding);
 
-.tab:first-child > span {
-  border-top-left-radius: var(--border-radius-base) var(--border-radius-base) !important;
-}
-
-.tab:last-of-type > span {
-  border-top-right-radius: var(--border-radius-base) var(--border-radius-base) !important;
-}
-
-.tab:not(:first-child) > span {
-  border-top-left-radius: 0 0 !important;
-}
-
-.tab:not(:last-of-type) > span {
-  border-top-right-radius: 0 0 !important;
+  & svg {
+    margin-left: var(--extra-small-padding);
+  }
 }
 
 .tab_headers {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  border-bottom: 1px solid rgba(34, 118, 252, 0.5);
+  border-bottom: 1px solid var(--color-button-inverted-border);
 }
 
 .tab_header__error {
@@ -47,7 +53,6 @@
 }
 
 .content_document {
-  border-top: 1px solid var(--color-button-primary-bg);
 }
 
 .content_object {

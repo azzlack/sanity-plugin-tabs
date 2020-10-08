@@ -4,6 +4,12 @@ Input component for rendering fieldsets as tabs
 
 [![NPM version](https://img.shields.io/npm/v/sanity-plugin-tabs?style=for-the-badge)](https://www.npmjs.com/package/sanity-plugin-tabs) [![NPM Downloads](https://img.shields.io/npm/dw/sanity-plugin-tabs?style=for-the-badge)](https://www.npmjs.com/package/sanity-plugin-tabs)
 
+### Compatibility
+| Package Version | Sanity Version |
+| --- | --- |
+| 2.0.x | 2.0.x |
+| 1.4.x | 1.130.x |
+
 ### How does it look?
 
 ![Preview](/images/previews.png?raw=true "Preview")
@@ -102,7 +108,7 @@ export default {
 };
 ```
 
-## Development
+### Development
 Run the following commands at the root of this repository.
 
 ```

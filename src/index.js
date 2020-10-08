@@ -5,8 +5,8 @@ import { resolveTypeName } from "./utils";
 import InvalidValue from "@sanity/form-builder/lib/inputs/InvalidValueInput";
 import * as PathUtils from "@sanity/util/paths.js";
 import WarningIcon from "part:@sanity/base/warning-icon";
-import Button from "part:@sanity/components/buttons/default";
 import defaultStyles from 'part:@sanity/components/formfields/default-style';
+import labelStyles from "part:@sanity/components/labels/default-style";
 import classNames from 'classnames';
 import styles from "./tabs.css";
 
@@ -209,18 +209,18 @@ class Tabs extends React.Component {
                 var title = fs.title || "Other";
 
                 return (
-                  <Button
+                  <div
                     key={fs.name || "other"}
-                    className={styles.tab}
-                    color="primary"
-                    inverted={this.state.activeTab == fs.name ? false : true}
+                    className={classNames(labelStyles.root, styles.tab, { [styles.tab__active]: this.state.activeTab == fs.name })}
                     onClick={() => this.onTabClicked(fs)}
                   >
-                    {title}
-                    {errors.length > 0 && (
-                      <WarningIcon className={styles.tab_header__error} />
-                    )}
-                  </Button>
+                    <div className={styles.tab_inner}>
+                      {title}
+                      {errors.length > 0 && (
+                        <WarningIcon className={styles.tab_header__error} />
+                      )}
+                    </div>
+                  </div>
                 );
               })}
             </div>
