@@ -1,6 +1,6 @@
 {
   "name": "sanity-plugin-tabs",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "description": "Sanity input component for rendering fieldsets as tabs",
   "main": "src/index.js",
   "scripts": {
