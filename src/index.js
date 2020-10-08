@@ -7,6 +7,7 @@ import * as PathUtils from "@sanity/util/paths.js";
 import WarningIcon from "part:@sanity/base/warning-icon";
 import Button from "part:@sanity/components/buttons/default";
 import defaultStyles from 'part:@sanity/components/formfields/default-style';
+import classNames from 'classnames';
 import styles from "./tabs.css";
 
 const { setIfMissing } = patches;
@@ -259,7 +260,7 @@ class Tabs extends React.Component {
 
                 if (expectedType !== actualType && !isCompatible) {
                   return (
-                    <div key={field.name} className={defaultStyles.root}>
+                    <div key={field.name} className={classNames(defaultStyles.root, styles.field_wrapper)}>
                       <InvalidValue
                         value={fieldValue}
                         onChange={fieldProps.onChange}
@@ -272,7 +273,7 @@ class Tabs extends React.Component {
                 }
               }
 
-              return <div key={field.name} className={defaultStyles.root}>
+              return <div key={field.name} className={classNames(defaultStyles.root, styles.field_wrapper)}>
                 <FormBuilderInput {...fieldProps} />
               </div>;
             })}
