@@ -8,7 +8,7 @@ Input component for rendering fieldsets as tabs
 | Package Version | Sanity Version |
 | --- | --- |
 | 2.0.x | 2.0.x |
-| 1.4.x | 1.130.x |
+| 1.4.x | 1.150.x |
 
 ### How does it look?
 
