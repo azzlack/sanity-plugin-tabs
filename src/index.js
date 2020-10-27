@@ -1,14 +1,18 @@
-import React, { Fragment } from "react";
-import PropTypes from "prop-types";
-import { withDocument, FormBuilderInput, patches } from "part:@sanity/form-builder";
-import { resolveTypeName } from "./utils";
-import InvalidValue from "@sanity/form-builder/lib/inputs/InvalidValueInput";
-import * as PathUtils from "@sanity/util/paths.js";
-import WarningIcon from "part:@sanity/base/warning-icon";
+import React, { Fragment } from 'react';
+import PropTypes from 'prop-types';
+import {
+  withDocument,
+  FormBuilderInput,
+  patches,
+} from 'part:@sanity/form-builder';
+import { resolveTypeName } from './utils';
+import InvalidValue from '@sanity/form-builder/lib/inputs/InvalidValueInput';
+import * as PathUtils from '@sanity/util/paths.js';
+import ErrorOutlineIcon from 'part:@sanity/base/error-outline-icon';
+import WarningOutlineIcon from 'part:@sanity/base/warning-outline-icon';
 import defaultStyles from 'part:@sanity/components/formfields/default-style';
-import labelStyles from "part:@sanity/components/labels/default-style";
 import classNames from 'classnames';
-import styles from "./tabs.css";
+import styles from './tabs.css';
 
 const { setIfMissing } = patches;
 
@@ -16,42 +20,42 @@ class Tabs extends React.Component {
   static propTypes = {
     type: PropTypes.shape({
       fieldsets: PropTypes.array.isRequired,
-      fields: PropTypes.array.isRequired
+      fields: PropTypes.array.isRequired,
     }).isRequired,
     level: PropTypes.number,
     value: PropTypes.shape({
-      _type: PropTypes.string
+      _type: PropTypes.string,
     }),
     focusPath: PropTypes.array,
     onFocus: PropTypes.func,
     onBlur: PropTypes.func,
-    onChange: PropTypes.func
+    onChange: PropTypes.func,
   };
 
   firstFieldInput = React.createRef();
 
   state = {
-    activeTab: ""
+    activeTab: '',
   };
 
   focus = () => {
     if (this.firstFieldInput.current) {
       this.firstFieldInput.current.focus();
-    }
-    else {
-
+    } else {
     }
 
     console.debug(`[Tabs] Focus`);
   };
 
-  getTabFields = tabName => {
-    return this.props.type.fields.filter(f => f.fieldset == tabName && f.type.hidden !== true);
+  getTabFields = (tabName) => {
+    return this.props.type.fields.filter(
+      (f) => f.fieldset == tabName && f.type.hidden !== true
+    );
   };
 
-  flattenFields = arr => {
+  flattenFields = (arr) => {
     var result = [];
-    arr.forEach(a => {
+    arr.forEach((a) => {
       result.push(a);
       if (a.type && Array.isArray(a.type.fields)) {
         result = result.concat(this.flattenFields(a.type.fields));
@@ -66,9 +70,9 @@ class Tabs extends React.Component {
       : [];
   };
 
-  getFieldSet = path => {
+  getFieldSet = (path) => {
     if (path && path.length > 0) {
-      var f = this.props.type.fields.find(f => {
+      var f = this.props.type.fields.find((f) => {
         return path.findIndex(f.name) > -1;
       });
 
@@ -76,7 +80,7 @@ class Tabs extends React.Component {
     }
   };
 
-  getTabMarkers = tabName => {
+  getTabMarkers = (tabName) => {
     var fields = this.flattenFields(this.getTabFields(tabName));
     var markers = fields.reduce((result, f) => {
       var fm = this.getFieldMarkers(f.name);
@@ -90,13 +94,14 @@ class Tabs extends React.Component {
     return markers;
   };
 
-  getFieldMarkers = fieldName => {
-    return this.props.markers
-      .filter(marker => PathUtils.startsWith([fieldName], marker.path));
+  getFieldMarkers = (fieldName) => {
+    return this.props.markers.filter((marker) =>
+      PathUtils.startsWith([fieldName], marker.path)
+    );
   };
 
   getActiveTabFields = () => {
-    if (this.state.activeTab !== "") {
+    if (this.state.activeTab !== '') {
       return this.getTabFields(this.state.activeTab);
     }
 
@@ -141,23 +146,22 @@ class Tabs extends React.Component {
 
   onHandleInvalidValue = (field, fieldPatchEvent) => {
     const { onChange, type } = this.props;
-
   };
 
-  onTabClicked = fieldset => {
+  onTabClicked = (fieldset) => {
     this.setState({
-      activeTab: fieldset.name
+      activeTab: fieldset.name,
     });
   };
 
-  setInput = input => {
+  setInput = (input) => {
     this.firstFieldInput = input;
-  }
+  };
 
   componentDidMount() {
-    if (this.state.activeTab === "" && this.props.type.fieldsets.length > 0) {
+    if (this.state.activeTab === '' && this.props.type.fieldsets.length > 0) {
       this.setState({
-        activeTab: this.props.type.fieldsets[0].name
+        activeTab: this.props.type.fieldsets[0].name,
       });
     }
   }
@@ -177,54 +181,73 @@ class Tabs extends React.Component {
 
     let contentStyle = styles.content_document;
 
-    if (type.options.layout === "object") {
+    if (type.options.layout === 'object') {
       contentStyle = styles.content_object;
     }
 
     var fieldSets = [];
-    if (type.fieldsets &&
+    if (
+      type.fieldsets &&
       type.fieldsets.length > 0 &&
-      type.fieldsets[0].single !== true) {
-        fieldSets = type.fieldsets.sort((a, b) => {
-          if (a.options && b.options) {
-            return a.options.sortOrder - b.options.sortOrder;
-          }
+      type.fieldsets[0].single !== true
+    ) {
+      fieldSets = type.fieldsets.sort((a, b) => {
+        if (a.options && b.options) {
+          return a.options.sortOrder - b.options.sortOrder;
+        }
 
-          return 0;
-        });
+        return 0;
+      });
     }
 
     return (
       <div className={styles.tabs}>
         {fieldSets.length > 1 && (
-            <div className={styles.tab_headers}>
-              {fieldSets.map(fs => {
-                var markers = this.getTabMarkers(fs.name);
-                var validation = markers.filter(
-                  marker => marker.type === "validation"
-                );
-                var errors = validation.filter(
-                  marker => marker.level === "error"
-                );
-                var title = fs.title || "Other";
+          <div className={styles.tab_headers}>
+            {fieldSets.map((fs) => {
+              var markers = this.getTabMarkers(fs.name);
+              var validation = markers.filter(
+                (marker) => marker.type === 'validation'
+              );
+              var errors = validation.filter(
+                (marker) => marker.level === 'error'
+              );
+              var warnings = validation.filter(
+                (marker) => marker.level === 'warning'
+              );
+              var hasErrors = errors.length > 0;
+              var hasWarnings = warnings.length > 0;
+              var hasIcon = hasErrors || hasWarnings;
+              var title = fs.title || 'Other';
 
-                return (
-                  <div
-                    key={fs.name || "other"}
-                    className={classNames(labelStyles.root, styles.tab, { [styles.tab__active]: this.state.activeTab == fs.name })}
-                    onClick={() => this.onTabClicked(fs)}
-                  >
-                    <div className={styles.tab_inner}>
-                      {title}
-                      {errors.length > 0 && (
-                        <WarningIcon className={styles.tab_header__error} />
-                      )}
-                    </div>
+              const iconStyles = classNames(
+                styles.icon,
+                hasErrors && styles.icon__error,
+                !hasErrors && hasWarnings && styles.icon__warning
+              );
+
+              return (
+                <button
+                  key={fs.name || 'other'}
+                  className={classNames(styles.tab, {
+                    [styles.tab__active]: this.state.activeTab == fs.name,
+                  })}
+                  onClick={() => this.onTabClicked(fs)}
+                >
+                  <div className={styles.tab_inner}>
+                    {title}
+                    {hasIcon && (
+                      <span className={iconStyles}>
+                        {hasErrors && <ErrorOutlineIcon />}
+                        {!hasErrors && hasWarnings && <WarningOutlineIcon />}
+                      </span>
+                    )}
                   </div>
-                );
-              })}
-            </div>
-          )}
+                </button>
+              );
+            })}
+          </div>
+        )}
         <div className={contentStyle}>
           {tabFields &&
             tabFields.map((field, i) => {
@@ -234,7 +257,8 @@ class Tabs extends React.Component {
               var fieldPath = [field.name];
               var fieldType = field.type;
               var fieldReadOnly = field.type.readOnly || readOnly;
-              var fieldValue = value && value[field.name] ? value[field.name] : undefined;
+              var fieldValue =
+                value && value[field.name] ? value[field.name] : undefined;
 
               var fieldProps = {
                 ...otherProps,
@@ -246,12 +270,13 @@ class Tabs extends React.Component {
                 focusPath: focusPath,
                 readOnly: fieldReadOnly,
                 value: fieldValue,
-                onFocus: path => this.onFieldFocusHandler(field, path),
-                onChange: patchEvent => this.onFieldChangeHandler(field, patchEvent),
-                onBlur: () => this.onFieldBlurHandler(field)
+                onFocus: (path) => this.onFieldFocusHandler(field, path),
+                onChange: (patchEvent) =>
+                  this.onFieldChangeHandler(field, patchEvent),
+                onBlur: () => this.onFieldBlurHandler(field),
               };
 
-              // Handle invalid values. 
+              // Handle invalid values.
               // Lifted from https://github.com/sanity-io/sanity/blob/next/packages/@sanity/form-builder/src/inputs/ObjectInput/Field.tsx
               if (typeof fieldValue !== 'undefined') {
                 const expectedType = fieldType.name;
@@ -260,7 +285,13 @@ class Tabs extends React.Component {
 
                 if (expectedType !== actualType && !isCompatible) {
                   return (
-                    <div key={field.name} className={classNames(defaultStyles.root, styles.field_wrapper)}>
+                    <div
+                      key={field.name}
+                      className={classNames(
+                        defaultStyles.root,
+                        styles.field_wrapper
+                      )}
+                    >
                       <InvalidValue
                         value={fieldValue}
                         onChange={fieldProps.onChange}
@@ -269,13 +300,21 @@ class Tabs extends React.Component {
                         ref={this.setInput}
                       />
                     </div>
-                  )
+                  );
                 }
               }
 
-              return <div key={field.name} className={classNames(defaultStyles.root, styles.field_wrapper)}>
-                <FormBuilderInput {...fieldProps} />
-              </div>;
+              return (
+                <div
+                  key={field.name}
+                  className={classNames(
+                    defaultStyles.root,
+                    styles.field_wrapper
+                  )}
+                >
+                  <FormBuilderInput {...fieldProps} />
+                </div>
+              );
             })}
         </div>
       </div>
