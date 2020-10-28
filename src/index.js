@@ -33,6 +33,7 @@ class Tabs extends React.Component {
   };
 
   firstFieldInput = React.createRef();
+  activeTabPanel = React.createRef();
 
   state = {
     activeTab: '',
@@ -152,6 +153,7 @@ class Tabs extends React.Component {
     this.setState({
       activeTab: fieldset.name,
     });
+    this.activeTabPanel.current.focus();
   };
 
   setInput = (input) => {
@@ -233,6 +235,10 @@ class Tabs extends React.Component {
                     [styles.tab__active]: this.state.activeTab == fs.name,
                   })}
                   onClick={() => this.onTabClicked(fs)}
+                  role="tab"
+                  aria-selected={this.state.activeTab == fs.name}
+                  aria-controls={`${fs.name}-tab-panel`}
+                  id={`${fs.name}-tab`}
                 >
                   <div className={styles.tab_inner}>
                     {title}
@@ -248,7 +254,14 @@ class Tabs extends React.Component {
             })}
           </div>
         )}
-        <div className={contentStyle}>
+        <div
+          className={contentStyle}
+          tabIndex={0}
+          role="tabpanel"
+          id={`${this.state.activeTab}-tab-panel`}
+          aria-labelledby={`${this.state.activeTab}-tab`}
+          ref={this.activeTabPanel}
+        >
           {tabFields &&
             tabFields.map((field, i) => {
               var fieldLevel = level;
@@ -259,6 +272,11 @@ class Tabs extends React.Component {
               var fieldReadOnly = field.type.readOnly || readOnly;
               var fieldValue =
                 value && value[field.name] ? value[field.name] : undefined;
+
+              var fieldWrapperProps = {
+                key: field.name,
+                className: classNames(defaultStyles.root, styles.field_wrapper),
+              };
 
               var fieldProps = {
                 ...otherProps,
@@ -285,13 +303,7 @@ class Tabs extends React.Component {
 
                 if (expectedType !== actualType && !isCompatible) {
                   return (
-                    <div
-                      key={field.name}
-                      className={classNames(
-                        defaultStyles.root,
-                        styles.field_wrapper
-                      )}
-                    >
+                    <div {...fieldWrapperProps}>
                       <InvalidValue
                         value={fieldValue}
                         onChange={fieldProps.onChange}
@@ -305,13 +317,7 @@ class Tabs extends React.Component {
               }
 
               return (
-                <div
-                  key={field.name}
-                  className={classNames(
-                    defaultStyles.root,
-                    styles.field_wrapper
-                  )}
-                >
+                <div {...fieldWrapperProps}>
                   <FormBuilderInput {...fieldProps} />
                 </div>
               );
