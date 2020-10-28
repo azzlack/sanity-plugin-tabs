@@ -38,8 +38,9 @@
 
 .tab_inner {
   padding: calc(
-    var(--medium-padding--em) - var(--extra-small-padding--em) - 1px
-  );
+      var(--medium-padding--em) - var(--extra-small-padding--em) - 1px
+    )
+    calc(var(--medium-padding--em) - 1px);
   display: flex;
   align-items: center;
   justify-content: center;
