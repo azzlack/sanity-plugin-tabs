@@ -1,20 +1,20 @@
-const toString = Object.prototype.toString
+const toString = Object.prototype.toString;
 // Copied from https://github.com/ForbesLindesay/type-of, but inlined to have fine grained control
 
 function resolveJSType(val) {
   switch (toString.call(val)) {
     case '[object Function]':
-      return 'function'
+      return 'function';
     case '[object Date]':
-      return 'date'
+      return 'date';
     case '[object RegExp]':
-      return 'regexp'
+      return 'regexp';
     case '[object Arguments]':
-      return 'arguments'
+      return 'arguments';
     case '[object Array]':
-      return 'array'
+      return 'array';
     case '[object String]':
-      return 'string'
+      return 'string';
     default:
   }
 
@@ -22,37 +22,37 @@ function resolveJSType(val) {
     try {
       if (typeof val.callee == 'function') {
         // eslint-disable-line max-depth
-        return 'arguments'
+        return 'arguments';
       }
     } catch (ex) {
       if (ex instanceof TypeError) {
         // eslint-disable-line max-depth
-        return 'arguments'
+        return 'arguments';
       }
     }
   }
 
   if (val === null) {
-    return 'null'
+    return 'null';
   }
 
   if (val === undefined) {
-    return 'undefined'
+    return 'undefined';
   }
 
   if (val && val.nodeType === 1) {
-    return 'element'
+    return 'element';
   }
 
   if (val === Object(val)) {
-    return 'object'
+    return 'object';
   }
 
-  return typeof val
+  return typeof val;
 }
 
 // Copied from https://github.com/sanity-io/sanity/blob/next/packages/@sanity/form-builder/src/utils/resolveTypeName.ts
 export function resolveTypeName(value) {
-    const jsType = resolveJSType(value)
-    return (jsType === 'object' && '_type' in value && value._type) || jsType
+  const jsType = resolveJSType(value);
+  return (jsType === 'object' && '_type' in value && value._type) || jsType;
 }
