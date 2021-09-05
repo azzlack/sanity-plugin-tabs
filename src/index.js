@@ -288,6 +288,7 @@ class Tabs extends React.Component {
                 focusPath: focusPath,
                 readOnly: fieldReadOnly,
                 value: fieldValue,
+                isRoot: false,
                 onFocus: (path) => this.onFieldFocusHandler(field, path),
                 onChange: (patchEvent) =>
                   this.onFieldChangeHandler(field, patchEvent),
