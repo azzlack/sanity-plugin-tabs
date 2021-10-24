@@ -56,3 +56,9 @@ export function resolveTypeName(value) {
   const jsType = resolveJSType(value);
   return (jsType === 'object' && '_type' in value && value._type) || jsType;
 }
+
+export function log(message, ...args) {
+  if (process.env.SANITY_STUDIO_PLUGIN_TABS_DEBUG === 'true') {
+    console.debug(message, args);
+  }
+}
