@@ -190,10 +190,11 @@ class Tabs extends React.Component {
     var fieldSets = [];
     if (
       type.fieldsets &&
-      type.fieldsets.length > 0 &&
       type.fieldsets[0].single !== true
     ) {
-      fieldSets = type.fieldsets.sort((a, b) => {
+      fieldSets = type.fieldsets.filter((fs) => 
+        (fs.fields ?? [fs.field]).some((field) => field.type.hidden !== true)
+      ).sort((a, b) => {
         if (a.options && b.options) {
           return a.options.sortOrder - b.options.sortOrder;
         }
