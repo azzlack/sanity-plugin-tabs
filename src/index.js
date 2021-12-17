@@ -5,7 +5,7 @@ import {
   FormBuilderInput,
   patches,
 } from 'part:@sanity/form-builder';
-import { resolveTypeName } from './utils';
+import { log, resolveTypeName } from './utils';
 import InvalidValue from '@sanity/form-builder/lib/inputs/InvalidValueInput';
 import * as PathUtils from '@sanity/util/paths.js';
 import ErrorOutlineIcon from 'part:@sanity/base/error-outline-icon';
@@ -45,7 +45,7 @@ class Tabs extends React.Component {
     } else {
     }
 
-    console.debug(`[Tabs] Focus`);
+    log(`[Tabs] Focus`);
   };
 
   getTabFields = (tabName) => {
@@ -112,7 +112,7 @@ class Tabs extends React.Component {
   onFieldBlurHandler = (field) => {
     const { onBlur, type } = this.props;
 
-    console.debug(`[Tabs] FieldBlurred:`, field);
+    log(`[Tabs] FieldBlurred:`, field);
 
     if (onBlur) {
       onBlur();
@@ -122,7 +122,7 @@ class Tabs extends React.Component {
   onFieldFocusHandler = (field, path) => {
     const { onFocus, type } = this.props;
 
-    console.debug(`[Tabs] FieldFocused:`, field, path);
+    log(`[Tabs] FieldFocused:`, field, path);
 
     if (onFocus) {
       onFocus(path);
@@ -137,7 +137,7 @@ class Tabs extends React.Component {
         .prefixAll(field.name)
         .prepend(setIfMissing({ _type: type.name }));
 
-      console.debug(`[Tabs] FieldChanged:`, field, e);
+      log(`[Tabs] FieldChanged:`, field, e);
 
       if (onChange) {
         onChange(e);
@@ -169,7 +169,7 @@ class Tabs extends React.Component {
   }
 
   render = () => {
-    console.debug(`[Tabs] Props:`, this.props);
+    log(`[Tabs] Props:`, this.props);
 
     const {
       level,
