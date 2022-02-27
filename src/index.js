@@ -5,6 +5,7 @@ import {
   FormBuilderInput,
   patches,
 } from 'part:@sanity/form-builder';
+import { Grid } from '@sanity/ui'
 import { log, resolveTypeName } from './utils';
 import InvalidValue from '@sanity/form-builder/lib/inputs/InvalidValueInput';
 import * as PathUtils from '@sanity/util/paths.js';
@@ -79,7 +80,7 @@ class Tabs extends React.Component {
       type.fieldsets &&
       type.fieldsets[0].single !== true
     ) {
-      fieldSets = type.fieldsets.filter((fs) => 
+      fieldSets = type.fieldsets.filter((fs) =>
         (fs.fields ?? [fs.field]).some((field) => field.type.hidden !== true)
       ).sort((a, b) => {
         if (a.options && b.options) {
@@ -121,6 +122,16 @@ class Tabs extends React.Component {
     return this.props.markers.filter((marker) =>
       PathUtils.startsWith([fieldName], marker.path)
     );
+  };
+
+  getActiveTab = () => {
+    if (this.state.activeTab !== '' && this.props.type.fieldsets) {
+      return this.props.type.fieldsets.find(
+        (f) => f.name == this.state.activeTab
+      );
+    }
+
+    return null;
   };
 
   getActiveTabFields = () => {
@@ -202,7 +213,11 @@ class Tabs extends React.Component {
       type,
       ...otherProps
     } = this.props;
+    const tab = this.getActiveTab();
     const tabFields = this.getActiveTabFields();
+
+    log("[Tabs] Active Tab", tab);
+    log("[Tabs] Actibe Tab Fields", tabFields);
 
     let contentStyle = styles.content_document;
 
@@ -272,67 +287,71 @@ class Tabs extends React.Component {
           aria-labelledby={`${this.state.activeTab}-tab`}
           ref={this.activeTabPanel}
         >
-          {tabFields &&
-            tabFields.map((field, i) => {
-              var fieldLevel = level;
-              var fieldRef = i === 0 ? this.firstFieldInput : null;
-              var fieldMarkers = this.getFieldMarkers(field.name);
-              var fieldPath = [field.name];
-              var fieldType = field.type;
-              var fieldReadOnly = field.type.readOnly || readOnly;
-              var fieldValue =
-                value && value[field.name] ? value[field.name] : undefined;
+          <div className={styles.field_grid}>
+            <Grid style={{columnGap: "1.25rem",rowGap: "2rem"}} columns={tab?.options?.columns ? tab.options.columns : 1}>
+              {tabFields &&
+                tabFields.map((field, i) => {
+                  var fieldLevel = level;
+                  var fieldRef = i === 0 ? this.firstFieldInput : null;
+                  var fieldMarkers = this.getFieldMarkers(field.name);
+                  var fieldPath = [field.name];
+                  var fieldType = field.type;
+                  var fieldReadOnly = field.type.readOnly || readOnly;
+                  var fieldValue =
+                    value && value[field.name] ? value[field.name] : undefined;
 
-              var fieldWrapperProps = {
-                key: field.name,
-                className: classNames(defaultStyles.root, styles.field_wrapper),
-              };
+                  var fieldWrapperProps = {
+                    key: field.name,
+                    className: classNames(defaultStyles.root, styles.field_wrapper),
+                  };
 
-              var fieldProps = {
-                ...otherProps,
-                ref: fieldRef,
-                type: fieldType,
-                markers: fieldMarkers,
-                level: fieldLevel,
-                path: fieldPath,
-                focusPath: focusPath,
-                readOnly: fieldReadOnly,
-                value: fieldValue,
-                isRoot: false,
-                onFocus: (path) => this.onFieldFocusHandler(field, path),
-                onChange: (patchEvent) =>
-                  this.onFieldChangeHandler(field, patchEvent),
-                onBlur: () => this.onFieldBlurHandler(field),
-              };
+                  var fieldProps = {
+                    ...otherProps,
+                    ref: fieldRef,
+                    type: fieldType,
+                    markers: fieldMarkers,
+                    level: fieldLevel,
+                    path: fieldPath,
+                    focusPath: focusPath,
+                    readOnly: fieldReadOnly,
+                    value: fieldValue,
+                    isRoot: false,
+                    onFocus: (path) => this.onFieldFocusHandler(field, path),
+                    onChange: (patchEvent) =>
+                      this.onFieldChangeHandler(field, patchEvent),
+                    onBlur: () => this.onFieldBlurHandler(field),
+                  };
 
-              // Handle invalid values.
-              // Lifted from https://github.com/sanity-io/sanity/blob/next/packages/@sanity/form-builder/src/inputs/ObjectInput/Field.tsx
-              if (typeof fieldValue !== 'undefined') {
-                const expectedType = fieldType.name;
-                const actualType = resolveTypeName(fieldValue);
-                const isCompatible = actualType === fieldType.jsonType;
+                  // Handle invalid values.
+                  // Lifted from https://github.com/sanity-io/sanity/blob/next/packages/@sanity/form-builder/src/inputs/ObjectInput/Field.tsx
+                  if (typeof fieldValue !== 'undefined') {
+                    const expectedType = fieldType.name;
+                    const actualType = resolveTypeName(fieldValue);
+                    const isCompatible = actualType === fieldType.jsonType;
 
-                if (expectedType !== actualType && !isCompatible) {
+                    if (expectedType !== actualType && !isCompatible) {
+                      return (
+                        <div {...fieldWrapperProps}>
+                          <InvalidValue
+                            value={fieldValue}
+                            onChange={fieldProps.onChange}
+                            validTypes={[fieldType.name]}
+                            actualType={actualType}
+                            ref={this.setInput}
+                          />
+                        </div>
+                      );
+                    }
+                  }
+
                   return (
                     <div {...fieldWrapperProps}>
-                      <InvalidValue
-                        value={fieldValue}
-                        onChange={fieldProps.onChange}
-                        validTypes={[fieldType.name]}
-                        actualType={actualType}
-                        ref={this.setInput}
-                      />
+                      <FormBuilderInput {...fieldProps} />
                     </div>
                   );
-                }
-              }
-
-              return (
-                <div {...fieldWrapperProps}>
-                  <FormBuilderInput {...fieldProps} />
-                </div>
-              );
-            })}
+                })}
+            </Grid>
+          </div>
         </div>
       </div>
     );

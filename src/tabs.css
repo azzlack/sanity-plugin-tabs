@@ -69,8 +69,11 @@
   }
 }
 
-.field_wrapper {
+.field_grid {
   padding-top: var(--medium-padding);
+}
+
+.field_wrapper {
 }
 
 .icon {
