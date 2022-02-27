@@ -71,6 +71,28 @@ class Tabs extends React.Component {
       : [];
   };
 
+  getFieldsets = (type) => {
+    var fieldSets = [];
+
+    if (
+      type &&
+      type.fieldsets &&
+      type.fieldsets[0].single !== true
+    ) {
+      fieldSets = type.fieldsets.filter((fs) => 
+        (fs.fields ?? [fs.field]).some((field) => field.type.hidden !== true)
+      ).sort((a, b) => {
+        if (a.options && b.options) {
+          return a.options.sortOrder - b.options.sortOrder;
+        }
+
+        return 0;
+      });
+    }
+
+    return fieldSets;
+  };
+
   getFieldSet = (path) => {
     if (path && path.length > 0) {
       var f = this.props.type.fields.find((f) => {
@@ -162,8 +184,9 @@ class Tabs extends React.Component {
 
   componentDidMount() {
     if (this.state.activeTab === '' && this.props.type.fieldsets.length > 0) {
+      var fieldsets = this.getFieldsets(this.props.type);
       this.setState({
-        activeTab: this.props.type.fieldsets[0].name,
+        activeTab: fieldsets[0].name,
       });
     }
   }
@@ -187,21 +210,7 @@ class Tabs extends React.Component {
       contentStyle = styles.content_object;
     }
 
-    var fieldSets = [];
-    if (
-      type.fieldsets &&
-      type.fieldsets[0].single !== true
-    ) {
-      fieldSets = type.fieldsets.filter((fs) => 
-        (fs.fields ?? [fs.field]).some((field) => field.type.hidden !== true)
-      ).sort((a, b) => {
-        if (a.options && b.options) {
-          return a.options.sortOrder - b.options.sortOrder;
-        }
-
-        return 0;
-      });
-    }
+    var fieldSets = this.getFieldsets(type);
 
     return (
       <div className={styles.tabs}>
