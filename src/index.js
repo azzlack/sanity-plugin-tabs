@@ -104,6 +104,14 @@ class Tabs extends React.Component {
     }
   };
 
+  getFieldValue = (value, field) => {
+    if (value && value[field.name] !== undefined) {
+      return value[field.name];
+    }
+
+    return undefined;
+  }
+
   getTabMarkers = (tabName) => {
     var fields = this.flattenFields(this.getTabFields(tabName));
     var markers = fields.reduce((result, f) => {
@@ -297,8 +305,7 @@ class Tabs extends React.Component {
                   var fieldPath = [field.name];
                   var fieldType = field.type;
                   var fieldReadOnly = field.type.readOnly || readOnly;
-                  var fieldValue =
-                    value && value[field.name] ? value[field.name] : undefined;
+                  var fieldValue = this.getFieldValue(value, field);
 
                   var fieldWrapperProps = {
                     key: field.name,
@@ -317,13 +324,12 @@ class Tabs extends React.Component {
                     value: fieldValue,
                     isRoot: false,
                     onFocus: (path) => this.onFieldFocusHandler(field, path),
-                    onChange: (patchEvent) =>
-                      this.onFieldChangeHandler(field, patchEvent),
+                    onChange: (patchEvent) => this.onFieldChangeHandler(field, patchEvent),
                     onBlur: () => this.onFieldBlurHandler(field),
                   };
 
                   // Handle invalid values.
-                  // Lifted from https://github.com/sanity-io/sanity/blob/next/packages/@sanity/form-builder/src/inputs/ObjectInput/Field.tsx
+                  // Lifted from https://github.com/sanity-io/sanity/blob/next/packages/%40sanity/form-builder/src/inputs/ObjectInput/ObjectInputField.tsx
                   if (typeof fieldValue !== 'undefined') {
                     const expectedType = fieldType.name;
                     const actualType = resolveTypeName(fieldValue);
