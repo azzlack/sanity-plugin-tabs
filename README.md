@@ -4,10 +4,15 @@ Input component for rendering fieldsets as tabs
 
 [![NPM version](https://img.shields.io/npm/v/sanity-plugin-tabs?style=for-the-badge)](https://www.npmjs.com/package/sanity-plugin-tabs) [![NPM Downloads](https://img.shields.io/npm/dw/sanity-plugin-tabs?style=for-the-badge)](https://www.npmjs.com/package/sanity-plugin-tabs)
 
+## Important
+Sanity now includes [Field Groups](https://www.sanity.io/docs/field-groups) from version `2.24.0`.  
+This feature supersedes this plugin, and it is now in maintenance only mode.
+
 ## Compatibility
 
 | Package Version | Sanity Version |
 | --------------- | -------------- |
+| 2.1.x           | 2.1.x - 2.24.x |
 | 2.0.x           | 2.0.x          |
 | 1.4.x           | 1.150.x        |
 
