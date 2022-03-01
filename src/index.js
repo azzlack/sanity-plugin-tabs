@@ -111,6 +111,22 @@ class Tabs extends React.Component {
 
     return undefined;
   }
+  
+  getFieldTitle = (field) => {
+    if (field.type) {
+      return field.type.title ?? field.type.name;
+    }
+
+    return "";
+  }
+  
+  getFieldDescription = (field) => {
+    if (field.type) {
+      return field.type.description;
+    }
+
+    return "";
+  }
 
   getTabMarkers = (tabName) => {
     var fields = this.flattenFields(this.getTabFields(tabName));
@@ -299,13 +315,15 @@ class Tabs extends React.Component {
             <Grid style={{columnGap: "1.25rem",rowGap: "2rem"}} columns={tab?.options?.columns ? tab.options.columns : 1}>
               {tabFields &&
                 tabFields.map((field, i) => {
-                  var fieldLevel = level;
+                  var fieldLevel = level + 1;
                   var fieldRef = i === 0 ? this.firstFieldInput : null;
                   var fieldMarkers = this.getFieldMarkers(field.name);
                   var fieldPath = [field.name];
                   var fieldType = field.type;
                   var fieldReadOnly = field.type.readOnly || readOnly;
                   var fieldValue = this.getFieldValue(value, field);
+                  var fieldTitle = this.getFieldTitle(field);
+                  var fieldDescription = this.getFieldDescription(field);
 
                   var fieldWrapperProps = {
                     key: field.name,
@@ -323,6 +341,8 @@ class Tabs extends React.Component {
                     readOnly: fieldReadOnly,
                     value: fieldValue,
                     isRoot: false,
+                    title: fieldTitle,
+                    description: fieldDescription,
                     onFocus: (path) => this.onFieldFocusHandler(field, path),
                     onChange: (patchEvent) => this.onFieldChangeHandler(field, patchEvent),
                     onBlur: () => this.onFieldBlurHandler(field),
