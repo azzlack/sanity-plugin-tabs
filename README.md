@@ -106,6 +106,7 @@ Run the following commands at the root of this repository.
 
 ```
 npm i
+npm run build
 npm link
 ```
 

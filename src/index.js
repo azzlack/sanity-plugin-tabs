@@ -7,7 +7,7 @@ import {
 } from 'part:@sanity/form-builder';
 import { Grid } from '@sanity/ui'
 import { log, resolveTypeName } from './utils';
-import InvalidValue from '@sanity/form-builder/lib/inputs/InvalidValueInput';
+import { InvalidValueInput } from '@sanity/form-builder/lib/inputs/InvalidValueInput';
 import * as PathUtils from '@sanity/util/paths.js';
 import ErrorOutlineIcon from 'part:@sanity/base/error-outline-icon';
 import WarningOutlineIcon from 'part:@sanity/base/warning-outline-icon';
@@ -358,7 +358,7 @@ class Tabs extends React.Component {
                     if (expectedType !== actualType && !isCompatible) {
                       return (
                         <div {...fieldWrapperProps}>
-                          <InvalidValue
+                          <InvalidValueInput
                             value={fieldValue}
                             onChange={fieldProps.onChange}
                             validTypes={[fieldType.name]}
